@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>中国美术史复习系统 · 案例</title>
+<style>
+:root{--ink:#090b0d;--muted:#59616a;--paper:#f2f4f5;--card:#e8ebed;
+  --line:#aeb5bc;--accent:#111820;--mark:#d5dbe0;--dark:#090b0d}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-size:17px;line-height:1.85;
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif;
+  text-rendering:optimizeLegibility}
+.serif{font-family:ui-serif,"Songti SC","STSong","Noto Serif CJK SC",serif}
+.mono{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace}
+.wrap{width:min(820px,calc(100% - 44px));margin:0 auto}
+.mx{max-width:1440px;margin:0 auto}
+.pad{padding-left:clamp(20px,5vw,76px);padding-right:clamp(20px,5vw,76px)}
+.wide{width:min(1080px,calc(100% - 44px));margin:0 auto}
+a{color:inherit}
+a:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+
+/* 顶部导航 —— 全站统一 */
+.topnav{position:sticky;top:0;z-index:50;background:rgba(242,244,245,.96);
+  backdrop-filter:blur(12px);border-bottom:1px solid var(--ink)}
+.topnav .mx{display:flex;gap:clamp(16px,2.8vw,40px);align-items:center;height:56px;overflow-x:auto}
+.topnav a{color:var(--muted);font-size:11px;font-weight:700;letter-spacing:.12em;text-decoration:none;white-space:nowrap;text-transform:uppercase}
+.topnav a:hover,.topnav a.on{color:var(--ink)}
+.topnav .nm{font-weight:900;color:var(--ink);margin-right:6px;white-space:nowrap;text-decoration:none;letter-spacing:.08em}
+.topnav .sp{flex:1}
+
+/* Hero —— 全站统一结构 */
+.hero{padding:96px 0 68px;border-bottom:1px solid var(--ink);background:var(--paper)}
+.eyebrow{color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase}
+.hero h1{margin:24px 0 0;font-size:clamp(42px,6.6vw,72px);font-weight:800;line-height:1.04;letter-spacing:-.055em}
+.hero .dek{margin-top:28px;font-size:18px;line-height:1.75;color:#30363c;max-width:660px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:22px;margin-top:44px;
+  padding-top:28px;border-top:1px solid var(--ink)}
+.meta dt{color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.18em;margin-bottom:7px;text-transform:uppercase}
+.meta dd{font-size:15px;line-height:1.65}
+.note{margin-top:30px;padding:18px 0 18px 20px;border-left:2px solid var(--ink);background:transparent;
+  font-size:15px;line-height:1.75;color:var(--muted)}
+
+/* 章节 —— 编号与标题层级全站统一 */
+section{padding:82px 0;border-bottom:1px solid var(--line)}
+.snum{color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.22em;margin-bottom:16px;text-transform:uppercase}
+h2.st{font-size:clamp(32px,4.2vw,48px);font-weight:800;line-height:1.08;margin-bottom:38px;letter-spacing:-.045em}
+h3{font-size:21px;line-height:1.5;margin:46px 0 16px;font-weight:750}
+h4{font-size:18px;margin:32px 0 12px}
+p{margin:0 0 1.15em}
+ul,ol{margin:0 0 1.3em 1.25em}
+li{margin:.45em 0}
+strong{font-weight:750}
+mark{background:var(--mark);color:var(--ink);padding:.06em .18em}
+code{padding:.1em .35em;border:1px solid var(--line);background:#e6e9eb;font-size:.88em;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+blockquote{margin:28px 0;padding:18px 22px;border-left:2px solid var(--ink);
+  background:var(--card);color:#30363c}
+blockquote p{margin:0}
+hr{margin:44px 0;border:0;border-top:1px solid var(--line)}
+.tw{overflow-x:auto;margin:24px 0 30px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{padding:10px 12px;border:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.65}
+th{background:#dde1e4;font-weight:750;white-space:nowrap}
+
+/* 标签 —— 全站统一 */
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{padding:4px 8px;border:1px solid var(--line);font-size:11px;color:var(--muted);white-space:nowrap;background:transparent}
+.badge{display:inline-block;padding:4px 8px;border:1px solid currentColor;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.badge.live{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.badge.prop{background:transparent;color:var(--muted)}
+
+/* 出口大卡片 —— 全站统一 */
+.exit{display:block;margin-top:16px;padding:30px;border:1px solid var(--ink);
+  background:transparent;text-decoration:none;color:inherit;transition:background .16s,color .16s}
+.exit:hover{background:var(--ink);color:var(--paper)}
+.exit .k{color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+.exit .t{margin-top:12px;font-size:25px;font-weight:800}
+.exit .m{margin-top:10px;color:var(--muted);font-size:15px;line-height:1.7}
+.exit:hover .k,.exit:hover .m{color:#c7cdd2}
+.exit.preview{padding:0;overflow:hidden}
+.exit-shot{position:relative;aspect-ratio:16/7;overflow:hidden;border-bottom:1px solid var(--ink);background:var(--card)}
+.exit-shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .2s ease}
+.exit-open{position:absolute;right:16px;bottom:16px;padding:9px 12px;background:var(--ink);color:var(--paper);font-size:11px;font-weight:800;letter-spacing:.06em}
+.exit-body{padding:26px 30px 30px}
+.exit.preview:hover .exit-shot img{transform:scale(1.012)}
+.exit.preview:hover .exit-open{background:var(--paper);color:var(--ink)}
+
+footer{padding:52px 0 78px;color:var(--muted);font-size:14px;line-height:1.85}
+@media(max-width:640px){
+  body{font-size:16px}
+  .hero{padding:64px 0 48px}
+  section{padding:56px 0}
+  .exit-shot{aspect-ratio:4/3}.exit-body{padding:22px}.exit-open{right:12px;bottom:12px}
+}
+
+.hero .badge{margin-bottom:18px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin:28px 0 4px}
+.hero-action{display:inline-block;padding:12px 16px;border:1px solid var(--ink);color:var(--ink);font-size:12px;font-weight:800;text-decoration:none}
+.hero-action.primary{background:var(--ink);color:var(--paper)}
+.casefit{margin-top:28px;padding:14px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
+  font:800 10px/1.5 "SFMono-Regular",monospace;letter-spacing:.12em;color:var(--muted)}
+.casefit b{color:var(--ink);margin-right:12px}
+.vs{background:var(--dark);color:#f2f4f5;border-bottom:1px solid #444c53}
+.vs .snum{color:var(--mark)}
+.vs h2.st,.vs h3{color:#fff}
+.vs p{color:#c8ced2}
+.vs strong{color:#fff}
+.ladder{margin:8px 0 10px}
+.rung{display:flex;align-items:baseline;gap:18px;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.14)}
+.rung:last-child{border-bottom:0}
+.rung .lv{flex:0 0 108px;font-size:19px;font-weight:800;color:#e8ecef}
+.rung .lv small{display:block;margin-top:3px;font-size:11.5px;font-weight:700;letter-spacing:.14em;color:#879199}
+.rung .d{flex:1;font-size:15.5px;line-height:1.7;color:#c8ced2}
+.rung .w{flex:0 0 72px;text-align:right;font-size:13px;color:#879199}
+.rung.top{border:1px solid var(--mark);padding:18px;margin-top:10px;background:rgba(213,219,224,.08)}
+.rung.top .lv,.rung.top .d{color:var(--mark)}
+.rung.top .w{color:var(--mark);font-weight:800}
+.bar{margin-bottom:16px}
+.bar .r{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;gap:14px}
+.bar .who{font-size:15px;font-weight:700;color:#fff}
+.bar .who span{margin-left:8px;color:#879199;font-size:13px;font-weight:500}
+.bar .v{font-size:18px;font-weight:800;color:#c8ced2;font-variant-numeric:tabular-nums}
+.bar .trk{height:12px;background:rgba(255,255,255,.1);overflow:hidden}
+.bar .fil{height:100%;min-width:5px;background:#727c84}
+.bar.hot .fil{background:var(--mark)}
+.bar.hot .v{color:var(--mark)}
+.grade{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:8px}
+.grade div{padding:16px 18px;border:1px solid rgba(255,255,255,.18)}
+.grade .g{color:var(--mark);font-size:12px;font-weight:800;letter-spacing:.12em}
+.grade p{margin:7px 0 0;font-size:14.5px;line-height:1.7;color:#c8ced2}
+.stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px;margin:8px 0 30px;
+  padding:26px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stat b{display:block;font-size:30px;font-weight:800;letter-spacing:-.02em;color:var(--accent);line-height:1.2}
+.stat span{display:block;margin-top:6px;font-size:13.5px;color:var(--muted);line-height:1.5}
+.nolink{border-style:dashed;cursor:default}
+.nolink:hover{background:var(--card);transform:none}
+.claim{margin-bottom:14px;padding:18px 20px;border:1px solid rgba(255,255,255,.18)}
+.claim .n{color:#a9b4ad;font-size:12px;font-weight:800;letter-spacing:.12em}
+.claim p{margin:7px 0 0;color:#e8ecef}
+.gap{display:flex;gap:20px;align-items:baseline;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.15)}
+.gap:last-of-type{border-bottom:0}
+.gap .big{flex:0 0 auto;width:150px;color:var(--mark);font-size:31px;font-weight:800;line-height:1.15}
+.gap .big small{display:block;margin-top:5px;color:#c2ccc6;font-size:13px;font-weight:600}
+.gap .t{font-size:16px;line-height:1.75;color:#e8ecef}
+.vsfoot{margin-top:26px;padding-top:22px;border-top:1px solid rgba(255,255,255,.15);color:#c9d0ca;font-size:16px}
+.vs mark{padding:.1em .28em;background:var(--mark);color:#090b0d;font-weight:700}
+.lg{display:flex;gap:22px;margin-bottom:22px;color:#a9b4ad;font-size:14px;flex-wrap:wrap}
+.lg i{display:inline-block;width:20px;height:11px;margin-right:7px;vertical-align:middle}
+.bar.self .fil{background:repeating-linear-gradient(135deg,#505a62,#505a62 7px,#77818a 7px,#77818a 14px)}
+.bar.self .v{color:#b9c4bd}
+@media(max-width:640px){.gap{flex-direction:column;gap:8px}.gap .big{width:auto;font-size:27px}}
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin:30px 0 6px}
+.figs.one{grid-template-columns:1fr}
+.fig{margin:0}
+.fig img{display:block;width:100%;height:auto;border:1px solid var(--line);background:var(--card)}
+.fig figcaption{margin-top:9px;font-size:13px;line-height:1.6;color:var(--muted)}
+.vs .fig figcaption{color:#879199}
+.vs .fig img{border-color:rgba(255,255,255,.18)}
+</style>
+</head>
+<body>
+
+
+<nav class="topnav"><div class="mx pad">
+  <a class="nm" href="index.html">中国美术史复习系统</a>
+  <a href="#s01">成果</a><a href="#s02">项目概述</a><a href="#s03">产品方案</a><a href="#s04">数据模型</a><a href="#s05">验证状态</a><a href="index.html#cases">← 全部案例</a>
+  <span class="sp"></span>
+</div></nav>
+<header class="hero"><div class="wrap">
+  <div class="eyebrow">CASE · 2026</div>
+  <span class="badge live">v0.1 开发中 · 自用</span>
+  <h1>中国美术史<br>复习系统 v0.1</h1>
+  <p class="dek">面向中央美术学院人文方向备考需求，完成掌握度分级、内容可靠性标注、作品数据整理与阅读界面设计。</p>
+  <div class="hero-actions">
+    <a class="hero-action primary" href="#s01">查看项目成果 ↓</a>
+    <a class="hero-action" href="#s02">查看项目说明 ↓</a>
+  </div>
+  <div class="casefit"><b>ROLE FIT</b>ARCHITECTURE / 0→1 / BOUNDARY</div>
+  <dl class="meta"><div><dt>周期</dt><dd>2026.08 — 至今<br>产品定义 → 数据层 → 界面</dd></div><div><dt>角色</dt><dd>独立完成<br>定义 · 设计 · 实现</dd></div><div><dt>状态</dt><dd>v0.1 开发中<br>闭环尚未验证</dd></div><div><dt>产出</dt><dd>产品结构文档 · 作品库 407 件<br>数据流水线 · 阅读界面</dd></div></dl>
+  <p class="note">当前状态：v0.1 自用版本；数据层与阅读界面可运行，闭卷训练记录待接入。</p>
+</div></header>
+<section id="s01"><div class="wrap">
+      <div class="snum">01 — 成果</div>
+      <h2 class="st">当前版本与数据产出</h2>
+      
+  <p>v0.1 已完成数据层、内容样本与阅读界面，当前产出如下：</p>
+  <div class="stat">
+    <div><b>407</b><span>件作品入库<br>含 15 个字段与来源页码</span></div>
+    <div><b>2,301</b><span>行阅读界面<br>作品库 · 体系 · 首页三屏</span></div>
+    <div><b>4</b><span>个数据脚本<br>图注定位 · 裁切 · 抽文 · 校对图</span></div>
+    <div><b>6 / 407</b><span>走通完整内容路径<br>其余仅有图像与图注</span></div>
+  </div>
+  <h3>抽样校验</h3>
+  <p>从六编各抽取 4 件作品生成 24 格校对图，用于检查整批裁切结果的系统性偏移；异常页面进入单独渲染与人工复核。</p>
+  <div class="exit nolink">
+    <div class="k">当前状态</div>
+    <div class="t">v0.1 · 开发中</div>
+    <div class="m">数据层与阅读界面可运行；闭卷训练记录与掌握层级变化待接入。</div>
+  </div>
+    </div></section>
+<section id="s02"><div class="wrap">
+      <div class="snum">02 — 项目概述</div>
+      <h2 class="st">备考场景与核心需求</h2>
+      <p>中央美术学院人文方向考试要求在闭卷状态下调用作品证据，并据此完成历史判断与论述。现有教材阅读器以章节为主线，作品图鉴以名称、年代和材质为主，缺少历史问题与图像证据之间的关联。</p>
+<p>项目聚焦三个需求：</p>
+<ul><li>按历史问题组织跨章节内容</li><li>区分作品识别、图像描述、历史解释与论述应用</li><li>记录每条内容的来源与可靠性</li></ul>
+<p>产品目标为建立“历史判断—作品证据—图像观察—闭卷输出”的复习路径，并通过具体任务记录掌握程度。</p>
+    </div></section>
+<section id="s03"><div class="wrap">
+      <div class="snum">03 — 产品方案</div>
+      <h2 class="st">学习路径、版本范围与验收标准</h2>
+      <h3>学习路径</h3>
+<blockquote><p>历史问题 → 历史判断 → 变化步骤 → 支撑作品 → 图像观察 → 历史解释 → 闭卷输出</p></blockquote>
+<p>系统支持顺序学习与闭卷反向检索。每次训练记录所达到的掌握层级，形成可持续更新的学习状态。</p>
+<h3>v0.1 范围</h3>
+<ul><li>教材第一编，PDF 第 60–134 页</li><li>五条历史变化线</li><li>六件核心样本的完整内容路径</li><li>全书 407 件作品的基础图像与图注数据</li></ul>
+<h3>验收标准</h3>
+<ol><li>脱离教材表述一条历史变化</li><li>调取至少两件作品作为证据</li><li>描述作品中可见的具体特征</li><li>区分图像观察、教材结论与审慎解释</li><li>通过作品对比完成论述</li></ol>
+    </div></section>
+<section id="s04" class="vs"><div class="wrap">
+      <div class="snum">04 — 数据模型</div>
+      <h2 class="st">掌握度与内容可靠性模型</h2>
+      
+  <p style="margin-bottom:34px">产品数据模型由掌握度、内容可靠性和图像定位策略三部分组成。</p>
+
+  <h3>掌握度分级</h3>
+  <p style="margin-bottom:22px">五个层级分别对应识别、描述、解释和论述任务。</p>
+  <div class="ladder">
+  <div class="rung"><div class="lv">眼熟<small>FAMILIAR</small></div><div class="d">看到图有印象</div><div class="w">≈0</div></div><div class="rung"><div class="lv">认出<small>IDENTIFY</small></div><div class="d">说出名称、时代、材质</div><div class="w">填空</div></div><div class="rung"><div class="lv">描述<small>DESCRIBE</small></div><div class="d">说明图像中的具体形式特征</div><div class="w">简答</div></div><div class="rung"><div class="lv">解释<small>EXPLAIN</small></div><div class="d">说清形式／技术与功能、信仰、权力的关系</div><div class="w">论述一段</div></div>
+  <div class="rung top"><div class="lv">用于论述<small>ARGUE</small></div>
+    <div class="d">调用作品证据，完成一条历史判断</div><div class="w">论述</div></div>
+  </div>
+
+  <h3 style="margin-top:56px">内容可靠性分级</h3>
+  <p style="margin-bottom:22px">根据教材来源、图像观察与表述确定性标注内容状态。</p>
+  <div class="grade">
+    <div><div class="g">教材明示</div><p>能在教材正文或图注里直接定位</p></div>
+    <div><div class="g">图像可见</div><p>能从作品图像直接观察，不依赖推测</p></div>
+    <div><div class="g">审慎解释</div><p>教材用了限定词，或需要保留学术边界</p></div>
+    <div><div class="g">待确认</div><p>缺少可靠依据，独立存放并等待补充来源</p></div>
+  </div>
+
+  <h3 style="margin-top:56px">作品图像数据处理</h3>
+  <p style="margin-bottom:22px">脚本依据教材 PDF 图注定位并裁切 407 件作品图像，每条数据保留定位策略。</p>
+  <div class="bar"><div class="r"><div class="who">同页最近<span>图注与图像在同一页，取最近的一块</span></div><div class="v">277</div></div><div class="trk"><div class="fil" style="width:100%"></div></div></div><div class="bar"><div class="r"><div class="who">同页唯一<span>该页只有一块图像区域</span></div><div class="v">74</div></div><div class="trk"><div class="fil" style="width:26.7%"></div></div></div><div class="bar"><div class="r"><div class="who">上一页<span>图注在次页，图像在前一页</span></div><div class="v">51</div></div><div class="trk"><div class="fil" style="width:18.4%"></div></div></div><div class="bar hot"><div class="r"><div class="who">人工裁切<span>自动定位结果需人工修正</span></div><div class="v">5</div></div><div class="trk"><div class="fil" style="width:1.8%"></div></div></div>
+  
+    </div></section>
+<section id="s05"><div class="wrap">
+      <div class="snum">05 — 验证状态</div>
+      <h2 class="st">当前验证与后续计划</h2>
+      <p>当前版本已完成 407 件作品数据整理、阅读界面和六件核心样本的完整内容路径。数据处理进度快于闭卷训练功能，产品验证仍集中在第一编。</p>
+<p>下一阶段包括：</p>
+<ul><li>接入闭卷训练记录与掌握度变化</li><li>将第五级掌握状态绑定实际论述产出</li><li>完成第一编的连续使用测试后评估扩展范围</li></ul>
+<p>当前结论：数据层与阅读界面可运行，学习效果尚未形成完整验证结果。</p>
+    </div></section>
+<footer><div class="wrap">
+  <a href="index.html#cases" style="color:var(--accent);font-weight:700;text-decoration:none">← 返回全部案例</a><br><br>
+  陈薪羽 · Claire_chen0718@qq.com
+</div></footer>
+<script>
+const secs=[...document.querySelectorAll('section[id]')];
+const links=[...document.querySelectorAll('.topnav a[href^="#"]')];
+addEventListener('scroll',()=>{
+  const y=scrollY+90; let cur='';
+  for(const s of secs) if(s.offsetTop<=y) cur=s.id;
+  links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur));
+},{passive:true});</script>
+</body></html>

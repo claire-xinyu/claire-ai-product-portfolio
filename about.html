@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>关于 · 陈薪羽</title>
+<style>
+:root{--ink:#090b0d;--muted:#59616a;--paper:#f2f4f5;--card:#e8ebed;
+  --line:#aeb5bc;--accent:#111820;--mark:#d5dbe0;--dark:#090b0d}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-size:17px;line-height:1.85;
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif;
+  text-rendering:optimizeLegibility}
+.serif{font-family:ui-serif,"Songti SC","STSong","Noto Serif CJK SC",serif}
+.mono{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace}
+.wrap{width:min(820px,calc(100% - 44px));margin:0 auto}
+.mx{max-width:1440px;margin:0 auto}
+.pad{padding-left:clamp(20px,5vw,76px);padding-right:clamp(20px,5vw,76px)}
+.wide{width:min(1080px,calc(100% - 44px));margin:0 auto}
+a{color:inherit}
+a:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+
+/* 顶部导航 —— 全站统一 */
+.topnav{position:sticky;top:0;z-index:50;background:rgba(242,244,245,.96);
+  backdrop-filter:blur(12px);border-bottom:1px solid var(--ink)}
+.topnav .mx{display:flex;gap:clamp(16px,2.8vw,40px);align-items:center;height:56px;overflow-x:auto}
+.topnav a{color:var(--muted);font-size:11px;font-weight:700;letter-spacing:.12em;text-decoration:none;white-space:nowrap;text-transform:uppercase}
+.topnav a:hover,.topnav a.on{color:var(--ink)}
+.topnav .nm{font-weight:900;color:var(--ink);margin-right:6px;white-space:nowrap;text-decoration:none;letter-spacing:.08em}
+.topnav .sp{flex:1}
+
+/* Hero —— 全站统一结构 */
+.hero{padding:96px 0 68px;border-bottom:1px solid var(--ink);background:var(--paper)}
+.eyebrow{color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase}
+.hero h1{margin:24px 0 0;font-size:clamp(42px,6.6vw,72px);font-weight:800;line-height:1.04;letter-spacing:-.055em}
+.hero .dek{margin-top:28px;font-size:18px;line-height:1.75;color:#30363c;max-width:660px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:22px;margin-top:44px;
+  padding-top:28px;border-top:1px solid var(--ink)}
+.meta dt{color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.18em;margin-bottom:7px;text-transform:uppercase}
+.meta dd{font-size:15px;line-height:1.65}
+.note{margin-top:30px;padding:18px 0 18px 20px;border-left:2px solid var(--ink);background:transparent;
+  font-size:15px;line-height:1.75;color:var(--muted)}
+
+/* 章节 —— 编号与标题层级全站统一 */
+section{padding:82px 0;border-bottom:1px solid var(--line)}
+.snum{color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.22em;margin-bottom:16px;text-transform:uppercase}
+h2.st{font-size:clamp(32px,4.2vw,48px);font-weight:800;line-height:1.08;margin-bottom:38px;letter-spacing:-.045em}
+h3{font-size:21px;line-height:1.5;margin:46px 0 16px;font-weight:750}
+h4{font-size:18px;margin:32px 0 12px}
+p{margin:0 0 1.15em}
+ul,ol{margin:0 0 1.3em 1.25em}
+li{margin:.45em 0}
+strong{font-weight:750}
+mark{background:var(--mark);color:var(--ink);padding:.06em .18em}
+code{padding:.1em .35em;border:1px solid var(--line);background:#e6e9eb;font-size:.88em;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+blockquote{margin:28px 0;padding:18px 22px;border-left:2px solid var(--ink);
+  background:var(--card);color:#30363c}
+blockquote p{margin:0}
+hr{margin:44px 0;border:0;border-top:1px solid var(--line)}
+.tw{overflow-x:auto;margin:24px 0 30px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{padding:10px 12px;border:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.65}
+th{background:#dde1e4;font-weight:750;white-space:nowrap}
+
+/* 标签 —— 全站统一 */
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{padding:4px 8px;border:1px solid var(--line);font-size:11px;color:var(--muted);white-space:nowrap;background:transparent}
+.badge{display:inline-block;padding:4px 8px;border:1px solid currentColor;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.badge.live{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.badge.prop{background:transparent;color:var(--muted)}
+
+/* 出口大卡片 —— 全站统一 */
+.exit{display:block;margin-top:16px;padding:30px;border:1px solid var(--ink);
+  background:transparent;text-decoration:none;color:inherit;transition:background .16s,color .16s}
+.exit:hover{background:var(--ink);color:var(--paper)}
+.exit .k{color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+.exit .t{margin-top:12px;font-size:25px;font-weight:800}
+.exit .m{margin-top:10px;color:var(--muted);font-size:15px;line-height:1.7}
+.exit:hover .k,.exit:hover .m{color:#c7cdd2}
+.exit.preview{padding:0;overflow:hidden}
+.exit-shot{position:relative;aspect-ratio:16/7;overflow:hidden;border-bottom:1px solid var(--ink);background:var(--card)}
+.exit-shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .2s ease}
+.exit-open{position:absolute;right:16px;bottom:16px;padding:9px 12px;background:var(--ink);color:var(--paper);font-size:11px;font-weight:800;letter-spacing:.06em}
+.exit-body{padding:26px 30px 30px}
+.exit.preview:hover .exit-shot img{transform:scale(1.012)}
+.exit.preview:hover .exit-open{background:var(--paper);color:var(--ink)}
+
+footer{padding:52px 0 78px;color:var(--muted);font-size:14px;line-height:1.85}
+@media(max-width:640px){
+  body{font-size:16px}
+  .hero{padding:64px 0 48px}
+  section{padding:56px 0}
+  .exit-shot{aspect-ratio:4/3}.exit-body{padding:22px}.exit-open{right:12px;bottom:12px}
+}
+
+.pad{padding-left:clamp(20px,5vw,76px);padding-right:clamp(20px,5vw,76px)}
+.mx{max-width:1440px;margin:0 auto}
+.topnav{position:absolute;background:transparent;backdrop-filter:none;border-bottom:1px solid rgba(232,235,238,.22)}
+.topnav .mx{height:64px}
+.topnav .nm{color:#f3f5f6;margin-right:auto}
+.topnav a{color:#8f989f}
+.topnav a:hover,.topnav a.on{color:#fff}
+
+.lead{background:#080a0c;color:#f2f4f5;padding:132px 0 64px;border-bottom:1px solid #5f6870}
+.lead-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(280px,.55fr);gap:clamp(48px,8vw,120px);align-items:end}
+.lead .eb{font-size:10px;font-weight:800;letter-spacing:.22em;color:#8e979f}
+.lead h1{margin:34px 0 0;font-size:clamp(76px,11vw,156px);font-weight:800;letter-spacing:-.07em;line-height:.92;max-width:none}
+.lead .tag{margin-top:28px;font-size:clamp(18px,2vw,27px);font-weight:650;line-height:1.45;max-width:36ch}
+.lead .bio{border-top:1px solid #555e66;padding-top:24px}
+.lead .bio p{font-size:14.5px;line-height:1.8;color:#aab1b7}
+.lead .bio strong{color:#fff}
+.lead .en{margin-top:18px;font-size:12px;font-weight:800;letter-spacing:.3em;color:#7f8991}
+.lmeta{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:72px;border-top:1px solid #555e66}
+.lmeta>div{padding:18px;border-right:1px solid #343b41;min-height:98px}
+.lmeta dt{font-size:9px;font-weight:800;letter-spacing:.18em;color:#707a82;margin-bottom:8px;text-transform:uppercase}
+.lmeta dd{font-size:13px;line-height:1.65;color:#d2d7da}
+
+.chain{background:#dce1e4;color:#090b0d;border-bottom:1px solid #090b0d}
+.chain .mx{display:grid;grid-template-columns:repeat(5,1fr);gap:0}
+.chain .mx>div{padding:22px 16px;border-right:1px solid #9ca5ac}
+.chain .mx>div:first-child{padding-left:0}
+.chain .k{font-size:9px;font-weight:900;letter-spacing:.16em;color:#4f5961;margin-bottom:7px}
+.chain .k i{font-style:normal;margin-right:8px;color:#879199}
+.chain .v{font-size:12.5px;line-height:1.55}
+
+section{padding:clamp(72px,8vw,112px) 0;border-bottom:1px solid var(--ink)}
+.snum{margin-bottom:22px}
+h2.st{font-size:clamp(40px,5.4vw,76px);line-height:1.02;letter-spacing:-.055em;margin:0}
+.sub{margin-top:24px;font-size:16px;line-height:1.8;color:var(--muted);max-width:62ch}
+
+.criteria{margin-top:54px;display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--ink);border-left:1px solid var(--ink)}
+.criterion{padding:28px;min-height:220px;border-right:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+.criterion .cn{font:800 10px/1.2 "SFMono-Regular",monospace;letter-spacing:.14em;color:var(--muted)}
+.criterion h3{margin:30px 0 12px;font-size:24px;letter-spacing:-.03em}
+.criterion p{font-size:14px;line-height:1.7;color:#4e565d}
+.criterion .proof{margin-top:24px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;line-height:1.6;color:var(--ink)}
+.criterion:last-child{grid-column:1/-1;min-height:180px}
+
+.workflow{background:#dfe3e6}
+.workflow-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.6fr);gap:clamp(36px,7vw,100px);align-items:end}
+.workflow-lead{font-size:15px;line-height:1.8;color:#3f474e;margin:0}
+.workflow-grid{display:grid;grid-template-columns:repeat(4,1fr);margin-top:48px;border-top:1px solid var(--ink);border-left:1px solid var(--ink)}
+.workflow-item{padding:26px;border-right:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+.workflow-item .wn{font:800 9px/1.2 "SFMono-Regular",monospace;letter-spacing:.14em;color:var(--muted)}
+.workflow-item h3{font-size:19px;line-height:1.35;margin:20px 0 10px;letter-spacing:-.02em}
+.workflow-item p{font-size:13px;line-height:1.72;color:#4d555c;margin:0}
+.workflow-summary{display:grid;grid-template-columns:1.2fr .8fr;margin-top:28px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+.workflow-summary>div{padding:20px 22px 20px 0}
+.workflow-summary>div+div{padding-left:22px;border-left:1px solid var(--ink)}
+.workflow-summary .wk{font:800 9px/1.2 "SFMono-Regular",monospace;letter-spacing:.14em;color:var(--muted);margin-bottom:9px}
+.workflow-summary p{margin:0;font-size:13px;line-height:1.72;color:#3f474e}
+.workflow-link{display:inline-block;margin-top:22px;font-size:12px;font-weight:800;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink)}
+
+.cases{margin-top:54px;border-top:1px solid var(--ink)}
+.cc{display:grid;grid-template-columns:58px 1fr 150px;gap:clamp(18px,3vw,48px);align-items:start;padding:38px 0;
+  border-bottom:1px solid var(--ink);text-decoration:none;transition:background .16s,color .16s,padding .16s}
+.cc:hover{background:var(--ink);color:var(--paper);padding-left:18px;padding-right:18px}
+.cc .ix{font:800 11px/1.2 "SFMono-Regular",monospace;letter-spacing:.14em;color:var(--muted);padding-top:6px}
+.cc-h{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.fit{font:800 9px/1.2 "SFMono-Regular",monospace;letter-spacing:.14em;color:var(--muted)}
+.cc-t{font-size:clamp(30px,3.5vw,52px);font-weight:850;letter-spacing:-.05em;line-height:1.04}
+.cc-en{margin-top:8px;font-size:9px;font-weight:800;letter-spacing:.2em;color:var(--muted)}
+.cc-l{margin:18px 0 0;font-size:15.5px;line-height:1.75;max-width:58ch;color:#3c4349}
+.cc-f{display:flex;flex-wrap:wrap;gap:8px 20px;margin:18px 0 14px}
+.cc-f span{font-size:12px;color:var(--muted)}
+.cc .rt{text-align:right;padding-top:4px}
+.cc .rt .p{font-size:10px;line-height:1.6;letter-spacing:.05em;color:var(--muted)}
+.cc .rt .go{margin-top:16px;font-size:12px;font-weight:800}
+.cc:hover .cc-l,.cc:hover .cc-f span,.cc:hover .cc-en,.cc:hover .fit,.cc:hover .ix,.cc:hover .rt .p,.cc:hover .tag{color:#aeb6bd}
+.cc:hover .badge.live{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+
+.gwrap{overflow-x:auto;margin-top:44px;padding-bottom:6px}
+.gwrap svg{max-width:100%;height:auto;min-width:780px}
+.g-lane{font-size:10px;font-weight:800;letter-spacing:.2em;fill:var(--muted)}
+.g-n{font-size:13px;fill:var(--ink)}.g-n.on{font-size:14px;font-weight:800}
+.g-r{font-size:10px;fill:var(--muted)}
+.g-bar{fill:#9ca5ac}.g-bar.on{fill:var(--ink)}
+.g-dot{fill:#9ca5ac}.g-dot.on{fill:var(--ink)}
+.g-grid{stroke:var(--line)}.g-t{font-size:10px;fill:var(--muted);text-anchor:middle}
+.legend{display:flex;gap:22px;margin-top:26px;font-size:12px;color:var(--muted);flex-wrap:wrap}
+.legend i{display:inline-block;width:18px;height:6px;margin-right:8px;vertical-align:middle}
+
+.foot{background:#080a0c;color:#f2f4f5;border:0}
+.foot h2.st{color:#fff}.foot .sub{color:#9fa7ad}
+.ct{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:52px;border-top:1px solid #4e565d}
+.ct>div{padding:22px 22px 0 0;border-right:1px solid #333a40;min-height:100px}.ct>div+div{padding-left:22px}
+.ct dt{font-size:9px;font-weight:800;letter-spacing:.18em;color:#737d85;margin-bottom:9px;text-transform:uppercase}
+.ct dd{font-size:17px}.ct a{color:#fff;text-decoration:none;border-bottom:1px solid #737d85}
+footer{padding:36px 0 58px;background:#080a0c;color:#717b83;font-size:12px;line-height:1.8}
+
+@media(max-width:820px){
+  .lead{padding:112px 0 54px}.lead-grid{grid-template-columns:1fr}.lead .bio{max-width:620px}
+  .lmeta{grid-template-columns:repeat(2,1fr)}.lmeta>div{border-bottom:1px solid #343b41;padding-bottom:18px}
+  .chain .mx{grid-template-columns:1fr}.chain .mx>div{border-right:0;border-bottom:1px solid #9ca5ac;padding-left:0}
+  .criteria{grid-template-columns:1fr}.criterion{min-height:0}
+  .workflow-head{grid-template-columns:1fr}.workflow-grid{grid-template-columns:repeat(2,1fr)}.workflow-summary{grid-template-columns:1fr}.workflow-summary>div+div{padding-left:0;border-left:0;border-top:1px solid var(--ink)}
+  .cc{grid-template-columns:42px 1fr}.cc .rt{grid-column:2;text-align:left}.ct{grid-template-columns:1fr}.ct>div{border-right:0;border-bottom:1px solid #333a40;padding-left:0!important}
+}
+@media(max-width:540px){.workflow-grid{grid-template-columns:1fr}.cc{grid-template-columns:1fr}.cc .rt{grid-column:1}.cc .ix{padding-top:0}.cc-h{align-items:flex-start;flex-direction:column}.lmeta{grid-template-columns:1fr}}
+
+.abody{max-width:760px}
+.abody h3{font-size:clamp(21px,2.2vw,27px);font-weight:800;letter-spacing:-.02em;margin:52px 0 6px}
+.abody .when{font-size:11px;font-weight:700;letter-spacing:.16em;color:var(--muted);margin-bottom:16px}
+.abody p{font-size:16.5px;line-height:1.85}
+.abody p+p{margin-top:1.1em}
+section.pale{background:#dfe3e6}
+</style>
+</head>
+<body>
+
+
+<nav class="topnav"><div class="mx pad">
+  <a class="nm" href="index.html">陈薪羽</a>
+  <a href="index.html#fit">岗位匹配</a><a href="index.html#cases">案例</a><a href="index.html#graph">项目索引</a><a href="about.html">关于</a><a href="index.html#contact">联系</a>
+  <span class="sp"></span>
+</div></nav>
+<header class="lead"><div class="mx pad">
+  <div class="eb">ABOUT · CHEN XINYU</div>
+  <h1 style="font-size:clamp(56px,8vw,120px)">关于</h1>
+  <p class="tag">项目经历、产品实践<br>与 AI 工作流。</p>
+  <div class="bio"><p>就读于中央美术学院人文学院美术学专业，长期接受图像分析、文献检索、学术写作与案例研究训练，具备较强的逻辑分析、信息整合与结构化表达能力。</p><p>具备项目从 0 到 1 策划与执行经验，工作覆盖需求分析、信息架构、交互原型、AI 工作流设计、数据处理与视觉呈现；能够根据任务拆分 AI、规则程序与人工审核环节，并形成可交付成果。</p></div>
+  <dl class="lmeta"><div><dt>在读</dt><dd>中央美术学院 人文学院<br>美术学 · 2023.09 — 2027.06</dd></div><div><dt>方向</dt><dd>AI 产品经理 · AI Product Builder<br>产品策略 · 用户研究</dd></div><div><dt>擅长</dt><dd>问题定义 · 产品架构 · 0→1 原型<br>证据边界 · 信息设计 · 复盘</dd></div><div><dt>状态</dt><dd>2027 届 · 可立即参加校招流程<br>目标：AI 产品 / AI 应用产品</dd></div></dl>
+</div></header>
+
+<section id="selfmade"><div class="mx pad">
+  <div class="snum">01 — 主动项目</div>
+  <h2 class="st">主动发起的<br>产品与工具</h2>
+  <div class="abody">
+    <p class="sub" style="max-width:none">围绕个人学习与工作管理中的实际需求，独立完成产品定义、信息架构、原型实现与持续迭代。</p>
+    <h3>个人工作台 StableWorkbench</h3><div class="when">2026.07 — 至今</div><p>面向个人工作与学习管理设计的多页面应用，包含概览、工作记录、待办、学习与周计划。通过重新划分页面职责，减少日历与任务视图的重复功能；同步调整自动生成脚本，保证数据写入后稳定生成新版界面。累计记录 72 条逐日数据。</p><h3>中国美术史复习系统</h3><div class="when">2026.08 — 至今</div><p>面向中央美术学院人文方向备考需求，设计“历史判断—作品证据—图像观察—闭卷输出”的学习路径。掌握度分为五级，内容可靠性分为四类；通过数据脚本完成教材图注定位、图像裁切和 407 件作品入库。v0.1 已完成第一编阅读界面与六件核心样本，闭卷训练记录待接入。</p>
+  </div>
+</div></section>
+
+<section id="internship" class="pale"><div class="mx pad">
+  <div class="snum">02 — INTERNSHIP</div>
+  <h2 class="st">平湖皓月工作室 · 内容制作实习</h2>
+  <div class="abody">
+    <p class="sub" style="max-width:none;margin-top:20px"><span class="when">2026.07.06 — 08.25</span></p>
+    <p>针对长访谈素材、多机位画面与独立录音难以直接交由大模型连续识别的问题，设计并执行 AI 辅助剪辑工作流。以可导入、可复核的剪辑成果为目标，明确程序处理、AI 分析与人工审核的职责边界，控制无效调用与 Token 消耗。</p>
+    <h3>01 · 素材预处理</h3><p>完成音轨结构检测、波形偏移测量、语音转写与时间戳索引。通过测量确认独立录音由 12 条素材音轨按拍摄顺序拼接，据此调整音源与对齐策略。</p><h3>02 · AI 语义分析</h3><p>将带时间戳的文本交由 AI 完成提纲定位、内容分段与删减建议，避免直接处理连续视频帧；通过结构化输入缩小模型任务范围。</p><h3>03 · 人工审核</h3><p>由人工检查画面连续性、跳切代价、语义准确性与采访节奏，并将审美判断转化为最小删除时长等可执行规则。</p><h3>04 · 剪辑软件交付</h3><p>输出时间点明确的剪辑决策表与可导入文件，在剪辑软件中分段验证。针对实际导入与复核结果持续调整匹配阈值、删除规则和文件结构。</p>
+  </div>
+</div></section>
+
+<section class="foot"><div class="mx pad">
+  <div class="snum" style="color:#737d85">03 — CONTACT</div>
+  <h2 class="st">联系方式</h2>
+  <dl class="ct">
+    <div><dt>EMAIL</dt><dd><a href="mailto:Claire_chen0718@qq.com">Claire_chen0718@qq.com</a></dd></div>
+    <div><dt>全部案例</dt><dd><a href="index.html#cases">回到作品集 →</a></dd></div>
+  </dl>
+</div></section>
+<footer><div class="mx pad">陈薪羽 · Claire_chen0718@qq.com</div></footer>
+<script>
+const secs=[...document.querySelectorAll('section[id]')];
+const links=[...document.querySelectorAll('.topnav a[href^="#"]')];
+addEventListener('scroll',()=>{
+  const y=scrollY+90; let cur='';
+  for(const s of secs) if(s.offsetTop<=y) cur=s.id;
+  links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur));
+},{passive:true});</script>
+</body></html>

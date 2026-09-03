@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mina 事件公共记录 · 案例</title>
+<style>
+:root{--ink:#090b0d;--muted:#59616a;--paper:#f2f4f5;--card:#e8ebed;
+  --line:#aeb5bc;--accent:#111820;--mark:#d5dbe0;--dark:#090b0d}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-size:17px;line-height:1.85;
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif;
+  text-rendering:optimizeLegibility}
+.serif{font-family:ui-serif,"Songti SC","STSong","Noto Serif CJK SC",serif}
+.mono{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace}
+.wrap{width:min(820px,calc(100% - 44px));margin:0 auto}
+.mx{max-width:1440px;margin:0 auto}
+.pad{padding-left:clamp(20px,5vw,76px);padding-right:clamp(20px,5vw,76px)}
+.wide{width:min(1080px,calc(100% - 44px));margin:0 auto}
+a{color:inherit}
+a:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+
+/* 顶部导航 —— 全站统一 */
+.topnav{position:sticky;top:0;z-index:50;background:rgba(242,244,245,.96);
+  backdrop-filter:blur(12px);border-bottom:1px solid var(--ink)}
+.topnav .mx{display:flex;gap:clamp(16px,2.8vw,40px);align-items:center;height:56px;overflow-x:auto}
+.topnav a{color:var(--muted);font-size:11px;font-weight:700;letter-spacing:.12em;text-decoration:none;white-space:nowrap;text-transform:uppercase}
+.topnav a:hover,.topnav a.on{color:var(--ink)}
+.topnav .nm{font-weight:900;color:var(--ink);margin-right:6px;white-space:nowrap;text-decoration:none;letter-spacing:.08em}
+.topnav .sp{flex:1}
+
+/* Hero —— 全站统一结构 */
+.hero{padding:96px 0 68px;border-bottom:1px solid var(--ink);background:var(--paper)}
+.eyebrow{color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase}
+.hero h1{margin:24px 0 0;font-size:clamp(42px,6.6vw,72px);font-weight:800;line-height:1.04;letter-spacing:-.055em}
+.hero .dek{margin-top:28px;font-size:18px;line-height:1.75;color:#30363c;max-width:660px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:22px;margin-top:44px;
+  padding-top:28px;border-top:1px solid var(--ink)}
+.meta dt{color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.18em;margin-bottom:7px;text-transform:uppercase}
+.meta dd{font-size:15px;line-height:1.65}
+.note{margin-top:30px;padding:18px 0 18px 20px;border-left:2px solid var(--ink);background:transparent;
+  font-size:15px;line-height:1.75;color:var(--muted)}
+
+/* 章节 —— 编号与标题层级全站统一 */
+section{padding:82px 0;border-bottom:1px solid var(--line)}
+.snum{color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.22em;margin-bottom:16px;text-transform:uppercase}
+h2.st{font-size:clamp(32px,4.2vw,48px);font-weight:800;line-height:1.08;margin-bottom:38px;letter-spacing:-.045em}
+h3{font-size:21px;line-height:1.5;margin:46px 0 16px;font-weight:750}
+h4{font-size:18px;margin:32px 0 12px}
+p{margin:0 0 1.15em}
+ul,ol{margin:0 0 1.3em 1.25em}
+li{margin:.45em 0}
+strong{font-weight:750}
+mark{background:var(--mark);color:var(--ink);padding:.06em .18em}
+code{padding:.1em .35em;border:1px solid var(--line);background:#e6e9eb;font-size:.88em;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+blockquote{margin:28px 0;padding:18px 22px;border-left:2px solid var(--ink);
+  background:var(--card);color:#30363c}
+blockquote p{margin:0}
+hr{margin:44px 0;border:0;border-top:1px solid var(--line)}
+.tw{overflow-x:auto;margin:24px 0 30px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{padding:10px 12px;border:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.65}
+th{background:#dde1e4;font-weight:750;white-space:nowrap}
+
+/* 标签 —— 全站统一 */
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{padding:4px 8px;border:1px solid var(--line);font-size:11px;color:var(--muted);white-space:nowrap;background:transparent}
+.badge{display:inline-block;padding:4px 8px;border:1px solid currentColor;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.badge.live{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.badge.prop{background:transparent;color:var(--muted)}
+
+/* 出口大卡片 —— 全站统一 */
+.exit{display:block;margin-top:16px;padding:30px;border:1px solid var(--ink);
+  background:transparent;text-decoration:none;color:inherit;transition:background .16s,color .16s}
+.exit:hover{background:var(--ink);color:var(--paper)}
+.exit .k{color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+.exit .t{margin-top:12px;font-size:25px;font-weight:800}
+.exit .m{margin-top:10px;color:var(--muted);font-size:15px;line-height:1.7}
+.exit:hover .k,.exit:hover .m{color:#c7cdd2}
+.exit.preview{padding:0;overflow:hidden}
+.exit-shot{position:relative;aspect-ratio:16/7;overflow:hidden;border-bottom:1px solid var(--ink);background:var(--card)}
+.exit-shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .2s ease}
+.exit-open{position:absolute;right:16px;bottom:16px;padding:9px 12px;background:var(--ink);color:var(--paper);font-size:11px;font-weight:800;letter-spacing:.06em}
+.exit-body{padding:26px 30px 30px}
+.exit.preview:hover .exit-shot img{transform:scale(1.012)}
+.exit.preview:hover .exit-open{background:var(--paper);color:var(--ink)}
+
+footer{padding:52px 0 78px;color:var(--muted);font-size:14px;line-height:1.85}
+@media(max-width:640px){
+  body{font-size:16px}
+  .hero{padding:64px 0 48px}
+  section{padding:56px 0}
+  .exit-shot{aspect-ratio:4/3}.exit-body{padding:22px}.exit-open{right:12px;bottom:12px}
+}
+
+.hero .badge{margin-bottom:18px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin:28px 0 4px}
+.hero-action{display:inline-block;padding:12px 16px;border:1px solid var(--ink);color:var(--ink);font-size:12px;font-weight:800;text-decoration:none}
+.hero-action.primary{background:var(--ink);color:var(--paper)}
+.casefit{margin-top:28px;padding:14px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
+  font:800 10px/1.5 "SFMono-Regular",monospace;letter-spacing:.12em;color:var(--muted)}
+.casefit b{color:var(--ink);margin-right:12px}
+.vs{background:var(--dark);color:#f2f4f5;border-bottom:1px solid #444c53}
+.vs .snum{color:var(--mark)}
+.vs h2.st,.vs h3{color:#fff}
+.vs p{color:#c8ced2}
+.vs strong{color:#fff}
+.ladder{margin:8px 0 10px}
+.rung{display:flex;align-items:baseline;gap:18px;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.14)}
+.rung:last-child{border-bottom:0}
+.rung .lv{flex:0 0 108px;font-size:19px;font-weight:800;color:#e8ecef}
+.rung .lv small{display:block;margin-top:3px;font-size:11.5px;font-weight:700;letter-spacing:.14em;color:#879199}
+.rung .d{flex:1;font-size:15.5px;line-height:1.7;color:#c8ced2}
+.rung .w{flex:0 0 72px;text-align:right;font-size:13px;color:#879199}
+.rung.top{border:1px solid var(--mark);padding:18px;margin-top:10px;background:rgba(213,219,224,.08)}
+.rung.top .lv,.rung.top .d{color:var(--mark)}
+.rung.top .w{color:var(--mark);font-weight:800}
+.bar{margin-bottom:16px}
+.bar .r{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;gap:14px}
+.bar .who{font-size:15px;font-weight:700;color:#fff}
+.bar .who span{margin-left:8px;color:#879199;font-size:13px;font-weight:500}
+.bar .v{font-size:18px;font-weight:800;color:#c8ced2;font-variant-numeric:tabular-nums}
+.bar .trk{height:12px;background:rgba(255,255,255,.1);overflow:hidden}
+.bar .fil{height:100%;min-width:5px;background:#727c84}
+.bar.hot .fil{background:var(--mark)}
+.bar.hot .v{color:var(--mark)}
+.grade{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:8px}
+.grade div{padding:16px 18px;border:1px solid rgba(255,255,255,.18)}
+.grade .g{color:var(--mark);font-size:12px;font-weight:800;letter-spacing:.12em}
+.grade p{margin:7px 0 0;font-size:14.5px;line-height:1.7;color:#c8ced2}
+.stat{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px;margin:8px 0 30px;
+  padding:26px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stat b{display:block;font-size:30px;font-weight:800;letter-spacing:-.02em;color:var(--accent);line-height:1.2}
+.stat span{display:block;margin-top:6px;font-size:13.5px;color:var(--muted);line-height:1.5}
+.nolink{border-style:dashed;cursor:default}
+.nolink:hover{background:var(--card);transform:none}
+.claim{margin-bottom:14px;padding:18px 20px;border:1px solid rgba(255,255,255,.18)}
+.claim .n{color:#a9b4ad;font-size:12px;font-weight:800;letter-spacing:.12em}
+.claim p{margin:7px 0 0;color:#e8ecef}
+.gap{display:flex;gap:20px;align-items:baseline;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.15)}
+.gap:last-of-type{border-bottom:0}
+.gap .big{flex:0 0 auto;width:150px;color:var(--mark);font-size:31px;font-weight:800;line-height:1.15}
+.gap .big small{display:block;margin-top:5px;color:#c2ccc6;font-size:13px;font-weight:600}
+.gap .t{font-size:16px;line-height:1.75;color:#e8ecef}
+.vsfoot{margin-top:26px;padding-top:22px;border-top:1px solid rgba(255,255,255,.15);color:#c9d0ca;font-size:16px}
+.vs mark{padding:.1em .28em;background:var(--mark);color:#090b0d;font-weight:700}
+.lg{display:flex;gap:22px;margin-bottom:22px;color:#a9b4ad;font-size:14px;flex-wrap:wrap}
+.lg i{display:inline-block;width:20px;height:11px;margin-right:7px;vertical-align:middle}
+.bar.self .fil{background:repeating-linear-gradient(135deg,#505a62,#505a62 7px,#77818a 7px,#77818a 14px)}
+.bar.self .v{color:#b9c4bd}
+@media(max-width:640px){.gap{flex-direction:column;gap:8px}.gap .big{width:auto;font-size:27px}}
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin:30px 0 6px}
+.figs.one{grid-template-columns:1fr}
+.fig{margin:0}
+.fig img{display:block;width:100%;height:auto;border:1px solid var(--line);background:var(--card)}
+.fig figcaption{margin-top:9px;font-size:13px;line-height:1.6;color:var(--muted)}
+.vs .fig figcaption{color:#879199}
+.vs .fig img{border-color:rgba(255,255,255,.18)}
+</style>
+</head>
+<body>
+
+
+<nav class="topnav"><div class="mx pad">
+  <a class="nm" href="index.html">Mina 事件公共记录</a>
+  <a href="#s01">线上成果</a><a href="#s02">项目概述</a><a href="#s03">证据体系</a><a href="#s04">内容设计</a><a href="#s05">传播结果</a><a href="#s06">项目复盘</a><a href="index.html#cases">← 全部案例</a>
+  <span class="sp"></span>
+</div></nav>
+<header class="hero"><div class="wrap">
+  <div class="eyebrow">CASE · 2026</div>
+  <span class="badge live">已投入使用</span>
+  <h1>Mina 事件<br>多语言证据档案<br>与公开时间线</h1>
+  <p class="dek">针对多语言、材料分散与信源不稳定的问题，两周内完成材料归档、证据分级、逐图翻译、时间校验、信息架构与网页发布。</p>
+  <div class="hero-actions">
+    <a class="hero-action primary" href="https://mina-timeline-2026-d4cf3035c19ed-1468490160.tcloudbaseapp.com/" target="_blank" rel="noopener">查看线上成果 ↗</a>
+    <a class="hero-action" href="#s02">查看项目说明 ↓</a>
+  </div>
+  <div class="casefit"><b>ROLE FIT</b>JUDGMENT / VERIFIABLE RESULT</div>
+  <dl class="meta"><div><dt>周期</dt><dd>2026.08.06 — 08.16<br>翻译 → 系统整理 → 发布</dd></div><div><dt>角色</dt><dd>主导内容与信息架构<br>承担 60–70% 工作量</dd></div><div><dt>团队</dt><dd>两人执行<br>一人顾问</dd></div><div><dt>产出</dt><dd>摘要长图 · 短帖串 · 完整文章<br>时间线网页 · 内部审核文档</dd></div></dl>
+  <p class="note">项目状态：已公开发布；页面收录证据等级、原始材料与来源信息。</p>
+</div></header>
+<section id="s01"><div class="wrap">
+      <div class="snum">01 — 线上成果</div>
+      <h2 class="st">公开时间线</h2>
+      
+  <p>公开时间线共 15,219 字，收录 43 张原始截图及中文翻译；每个节点标注时间、来源与证据等级。</p>
+  <a class="exit preview" href="https://mina-timeline-2026-d4cf3035c19ed-1468490160.tcloudbaseapp.com/" target="_blank" rel="noopener">
+    <div class="exit-shot"><img src="assets/previews/mina.png" alt="Mina 事件公开时间线网页首屏预览"><span class="exit-open">点击查看网页 ↗</span></div>
+    <div class="exit-body"><div class="k">公开时间线</div>
+    <div class="t">不只是一场饭圈网暴 →</div>
+    <div class="m">15,219 字 · 43 张原始截图 · 跨三种语言 · 全部附中文翻译</div></div>
+  </a>
+    </div></section>
+<section id="s02"><div class="wrap">
+      <div class="snum">02 — 项目概述</div>
+      <h2 class="st">项目背景与信息缺口</h2>
+      <p>2026 年 8 月，相关事件在中文互联网持续传播，讨论材料分布于中文、日文和韩文平台。公开信息以截图、直播录屏、社交平台帖子和二手转述为主，缺少统一时间线与稳定来源。</p>
+<p>项目需要解决四项信息问题：</p>
+<ul><li>多语言材料缺少统一翻译与原文对照</li><li>截图时间显示受时区影响，关键节点存在误差</li><li>一手材料、同期转述和事后陈述混合使用</li><li>账号保护、删帖和注销导致来源持续失效</li></ul>
+<p>项目目标为建立可检索、可追溯的公开记录，使每条主张均能对应时间、来源和证据等级。</p>
+    </div></section>
+<section id="s03"><div class="wrap">
+      <div class="snum">03 — 证据体系</div>
+      <h2 class="st">证据分级、时间校验与材料归档</h2>
+      <h3>证据分级</h3>
+<div class="tw"><table><thead><tr><th>等级</th><th>定义</th><th>使用方式</th></tr></thead><tbody><tr><td><strong>A</strong></td><td>当事人原帖、直播录屏、平台页面、原始字幕</td><td>支撑事实节点</td></tr><tr><td><strong>B</strong></td><td>同期转发、引用与搜索缓存</td><td>证明当时的传播内容</td></tr><tr><td><strong>C</strong></td><td>当事人、亲友或主持人的事后陈述</td><td>标注陈述者与时间</td></tr><tr><td><strong>D</strong></td><td>来源不完整、匿名或仅有机器翻译的材料</td><td>独立存档，暂不进入结论</td></tr></tbody></table></div>
+<h3>时间与数据校验</h3>
+<ul><li>通过 X 平台雪花 ID 反解发布时间，修正两处相差一小时的时间记录</li><li>关键互动数据采用页面直读与公开镜像接口交叉核对；五项互动指标一致，浏览量差异为 0.03%</li><li>日文与韩文材料保留原图、原文和中文翻译，支持逐条复核</li></ul>
+<h3>归档规模</h3>
+<div class="tw"><table><thead><tr><th>内容</th><th>数量</th></tr></thead><tbody><tr><td>唯一帖子 ID</td><td>272 条</td></tr><tr><td>涉及账号</td><td>191 个</td></tr><tr><td>原始截图</td><td>43 张，全部附中文翻译</td></tr><tr><td>事件节点目录</td><td>28 个</td></tr><tr><td>逐字材料</td><td>51 分钟直播字幕、约 3.1 万字采访全文</td></tr><tr><td>公开时间线</td><td>15,219 字</td></tr></tbody></table></div>
+    </div></section>
+<section id="s04"><div class="wrap">
+      <div class="snum">04 — 内容设计</div>
+      <h2 class="st">受众分层与内容结构</h2>
+      <h3>受众与内容层级</h3>
+<p>同一批材料按阅读需求拆分为五种形态：</p>
+<div class="tw"><table><thead><tr><th>产出</th><th>主要受众</th><th>功能</th></tr></thead><tbody><tr><td>摘要长图</td><td>首次接触事件的读者</td><td>提供核心时间差与完整入口</td></tr><tr><td>短帖串文</td><td>社交平台用户</td><td>测试主题理解与反馈</td></tr><tr><td>完整文章</td><td>关注事件进展的读者</td><td>呈现主要论证</td></tr><tr><td>时间线网页</td><td>需要核查信息的读者</td><td>收录时间节点、证据等级和原始材料</td></tr><tr><td>内部审核文档</td><td>协作者与审核者</td><td>记录来源、争议点和待确认内容</td></tr></tbody></table></div>
+<h3>内容规则</h3>
+<ul><li>不使用缺少原件的遗书、匿名私信或无原帖转述</li><li>不作死因与单一责任判断</li><li>事实、陈述与推测分别标注</li><li>关键时间和传播数据须完成交叉校验</li></ul>
+<h3>方案迭代</h3>
+<p>初版长文发布后，外部触达有限。后续将长篇论证拆分为摘要、文章、时间线和审核文档，并将项目定位调整为可供查阅与二次创作的结构化材料。一次公开一手材料与初版前提冲突后，重新核查论证链并收窄结论范围。</p>
+    </div></section>
+<section id="s05" class="vs"><div class="wrap">
+      <div class="snum">05 — 传播结果</div>
+      <h2 class="st">发布与二次传播数据</h2>
+      
+  <p style="margin-bottom:34px">项目发布后，结构化材料被多个账号用于短视频改编。以下为 2026 年 8 月下旬记录的六条抖音二次创作样本汇总。</p>
+  <div class="bar"><div class="r"><div class="who">点赞<span>六条样本合计</span></div><div class="v">约 12.7 万</div></div><div class="trk"><div class="fil" style="width:100%"></div></div></div><div class="bar"><div class="r"><div class="who">转发<span>六条样本合计</span></div><div class="v">约 8.8 万</div></div><div class="trk"><div class="fil" style="width:69.3%"></div></div></div><div class="bar"><div class="r"><div class="who">评论<span>六条样本合计</span></div><div class="v">约 2.9 万</div></div><div class="trk"><div class="fil" style="width:22.8%"></div></div></div>
+  <p style="margin-top:24px;color:#a9b4ad;font-size:15px">以上数据来自二次创作账号，用于说明材料的后续使用情况，不计入个人账号传播成绩。</p>
+    </div></section>
+<section id="s06"><div class="wrap">
+      <div class="snum">06 — 项目复盘</div>
+      <h2 class="st">验证结果、局限与后续方向</h2>
+      <h3>已验证</h3>
+<ul><li>公开网页完成发布，原始材料、翻译与证据等级可按时间节点查询</li><li>结构化材料被多个账号用于短视频改编</li><li>六条抖音二次创作样本合计约 12.7 万点赞、2.9 万评论和 8.8 万转发</li></ul>
+<h3>局限</h3>
+<ul><li>未完成面向陌生读者的系统可用性测试</li><li>传播数据来自二次创作账号，不计入个人账号成绩</li><li>二次创作可能改变原材料的证据边界与结论强度</li></ul>
+<h3>后续方向</h3>
+<p>补充读者任务测试、来源失效监测与引用版本记录，降低材料删除和二次改写对长期可核查性的影响。</p>
+    </div></section>
+<footer><div class="wrap">
+  <a href="index.html#cases" style="color:var(--accent);font-weight:700;text-decoration:none">← 返回全部案例</a><br><br>
+  时间统一至东九区（JST／KST，UTC+9）。文中浏览量为存档当时页面显示数值，均经两条独立路径交叉验证。<br>本案例不认定死因，不认定单一责任方，凡属单方面说法的内容均未采用。<br>陈薪羽 · Claire_chen0718@qq.com
+</div></footer>
+<script>
+const secs=[...document.querySelectorAll('section[id]')];
+const links=[...document.querySelectorAll('.topnav a[href^="#"]')];
+addEventListener('scroll',()=>{
+  const y=scrollY+90; let cur='';
+  for(const s of secs) if(s.offsetTop<=y) cur=s.id;
+  links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur));
+},{passive:true});</script>
+</body></html>
